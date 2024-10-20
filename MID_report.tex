@@ -1,4 +1,4 @@
-\documentclass[9pt,twocolumn,twoside]{article} %210 mm × 297 mm
+\documentclass[11pt,twocolumn,twoside]{article} %210 mm × 297 mm
 \usepackage[utf8]{inputenc}
 \usepackage[spanish, es-tabla]{babel}
 \spanishdecimal{.}
@@ -108,12 +108,43 @@ By applying deep learning methodologies, this research seeks to improve the accu
     \end{tabular}
     \label{}
     \end{table}
+    One proposed model in a paper has a structured flow chart of image acquisition, segmentation, grid mapping, classes, and dataset generation, Supervised Learning model \cite{rizvi2018ocr}.
+
+    The image can be acquired simply through a camera lens or a scanned copy. The image will then go through the segmentation process where paragraphs are broken into lines, lines into words, and words into characters \cite{rizvi2018ocr}. Urdu OCRs can generally have two types of segmentations: one is a holistic approach dividing lines into words, not characters, as words are directly recognized; the other approach is the analytical approach where words can be further divided into characters \cite{rizvi2018ocr}. The segmentation model includes a very important step, the image preprocessing part, which comes before the word segmentation \cite{rizvi2018ocr}. After each image has been segmented into words or characters, they are mapped onto a binary grid structure for feature extraction, which usually works best for pixel-based OCRs. Through the grid structure, dataset instances are generated \cite{rizvi2018ocr}.
+
+    Another paper suggests there are 5 main stages of Urdu text recognition \cite{alrobah2022arabic}. The first one being the input stage where the image is given as input, next stage is the preprocessing stage where the image data is cleaned in the sense that it converts the image to black and white through binarization and removes noise as well \cite{alrobah2022arabic}. In this step, the image is also resized to keep uniform dimensions of the image making it easier for the model to predict the text. Next step is the segmentation step where the data is broken into pieces; for example, if we have a paragraph as input, it segments it into lines, lines are then segmented to words and lastly the words are segmented to characters \cite{alrobah2022arabic}. The fourth stage of text recognition is the feature extraction where various words and characters are categorized in the Urdu language \cite{alrobah2022arabic}. The last stage is the classification process where the words are recognized by their features and eventually given as an output. This process is slightly challenging due to the cursive nature of Urdu text where a single dot can change the entire meaning of the word \cite{alrobah2022arabic}.
+
 
 \subsection{Models used}
+To obtain training set results, different supervised learning models are used, including Naive Bayes, Logistic Regression, Random Forest, and Multi-layer Perceptron (MLP), to recognize Urdu characters \cite{rizvi2018ocr}. These algorithms are more known for their accuracy in pattern recognition tasks like OCR \cite{rizvi2018ocr}.
 
+Naive Bayes and Random Forest are more known for their efficiency in handling large datasets, while Multi-Layer Perceptron is known for its ability to recognize complex patterns in cursive languages such as Urdu. These algorithms are of high accuracy, with models like MLP reaching up to 97.67\% accuracy, and Logistic Regression achieving 98.45\% \cite{rizvi2018ocr}. Naive Bayes classifier also provides competitive performance even though it's much simpler.
+
+The recognition of handwritten Urdu characters has received significant attention in recent years, especially through the application of Convolutional Neural Networks (CNNs) \cite{alrobah2022arabic}. CNN architectures are built by switching between layers of convolution, activation, and pooling, which facilitate excellent feature extraction followed by classification through a SoftMax fully connected layer \cite{alrobah2022arabic}.
+
+Theoretical frameworks suggest that hybrid models, which consist of both deep learning models and machine learning models, result in a more accurate output since deep learning models are efficient in feature extraction while machine learning models are efficient in classification \cite{alrobah2022arabic}. Despite these theoretical advantages, many experiments reported lower accuracy rates than those achieved by models using only one of the two models. This error can be traced to problems in fine-tuning hyperparameters across both models and potential inefficiencies in feature extraction by the deep learning networks \cite{alrobah2022arabic}.
+
+Other deep learning architectures such as Recurrent Neural Networks (RNNs) and similar Long Short-Term Memory (LSTM) networks have also proved to be holistic perspective models for word recognition \cite{alrobah2022arabic}. However, these models do not work very well for long sentences or paragraphs. Despite the promising results of RNN and LSTM architectures, it is generally observed that CNNs perform better for Urdu text recognition than these models as they can learn such patterns efficiently \cite{alrobah2022arabic}.
 
 \subsection{CNN}
-Describe CNN network how the already established Arbic OCRs use CNNs.
+
+Convolutional Neural Network is a deep learning model used for feature extraction from images as it has high efficiency in learning patterns, shapes and edges \cite{alzubaidi2021review}.
+
+\begin{enumerate}
+    \item \textbf{Input Layer}: The model takes a handwritten Urdu text image as input. The image is broken down into a grid of pixels  \cite{alzubaidi2021review}.
+    
+    \item \textbf{Convolutional Layers}: These are layers that apply filters to the image, each for a different purpose as one filter may be to detect curves, edges, horizontal and vertical lines, and other details that are in the image. These filters are initially applied to each pixel. As the filters slide across the images, a simplified version of the image is created that consists only of the relevant details  \cite{alzubaidi2021review}.
+    
+    \item \textbf{Activation function}: ReLU activation function is applied to the images after the convolutional layer that replaces negative values with zeros, retaining positive values. Sigmoid activatio function is also used where the output is restricted between 0 and 1. This makes the model more efficient as it avoids gradient vanishing and helps the model learn complex patterns  \cite{alzubaidi2021review}.
+    
+    \item \textbf{Pooling Layer}: This layer reduces the image size to make the model faster and takes the maximum or average value of each pixel, making the model focused on only the most relevant and important parts  \cite{alzubaidi2021review}.
+    
+    \item \textbf{Fully Connected Layers}: After many rounds of convolution and pooling, here the layer combines all features extracted and learned to make predictions and classify the \cite{alzubaidi2021review}.
+    
+    \item \textbf{Output Layer}: Final layer where the model makes a prediction of the text it recognizes it as  \cite{alzubaidi2021review}.
+    
+    \item \textbf{Optimizers}: Loss functions are used to minimize loss. Cross entropy or Softmax loss function are mostly used for this purpose as it is known to give best results for OCRs  \cite{alzubaidi2021review}.
+\end{enumerate}
 
 \cite{rizvi2018ocr} %cite the paper we recitefor using CNN
 \cite{mahdi2024ocr} %in case of citing more papers
@@ -132,7 +163,7 @@ Data is the most essential part for designing an Urdu handwritten OCR. It's impo
 
 We have collected 20,000 images that are handwritten in varying styles and scripts of Urdu. We will use these images for training and testing our model; we have intended to use 10,000 images for training and 10,000 for testing. Two main sources through which we collected our dataset were from kaggle.com and handwritten by ourselves.
 
-\section*{Acquisition}
+\subsection{Acquisition}
 The primary source for our dataset collection was Kaggle, from where we got most of our data. It was a challenge to find the data on Kaggle because many of the datasets that were published either had only input or only output. There were datasets that had perfect handwritten input images, but their output as Urdu text was written on Excel sheets that, upon downloading, did not show the Urdu text properly and instead had random special characters written in those tabs. Many of the datasets had digital text form of input and not handwritten, but since these datasets had outputs as text files, we decided to write most of their digital text input by hand ourselves. Other than Kaggle, we also asked family members and friends to write a couple of sentences on paper and send them to us as images every day. Those images were then cropped and used as sentences for input.
 
 Following are the links to our dataset which we took from Kaggle:
@@ -145,7 +176,7 @@ Following are the links to our dataset which we took from Kaggle:
     \item UNHD Dataset (kaggle.com)
 \end{itemize}
 
-\section*{Characterization}
+\subsection{Characterization}
 There are a total of 20,000 images consisting of paragraphs, sentences, words, characters, and digits. We have obtained datasets for characters written in different styles for character recognition and also punctuation. All kinds of styles and scripts available in the Urdu language were added to the dataset. Since Urdu letters revolve a lot around dots, it is a common practice to write the dots conjoined. For example, when two dots are written together, it is often represented as a dash. Keeping this in mind, data has been collected for such writing practices as well. We made sure to choose data that is of excellent quality, which means blurry pictures and smudged handwriting were avoided. The output data is in the form of text files where each handwritten image’s data is written.
 
 
